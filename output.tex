@@ -1,0 +1,163 @@
+
+\documentclass[a4paper,10pt]{article}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{geometry}
+\usepackage{enumitem}
+\usepackage{multicol}
+\usepackage{titlesec}
+\usepackage{fontawesome5}
+\usepackage{hyperref}
+\usepackage{ragged2e}
+\usepackage{helvet}
+\usepackage{lmodern}
+\renewcommand{\familydefault}{\sfdefault}
+\usepackage[scaled=0.92]{helvet}
+
+% Page layout
+\geometry{left=1in, right=1in, top=0.5in, bottom=0.5in}
+\pagestyle{empty}
+\setlength{\parindent}{0pt}
+\setlength{\columnsep}{1cm}
+
+% Hyperlink formatting
+\hypersetup{
+    colorlinks=true,
+    urlcolor=black,
+    pdftitle={Professional Resume},
+    pdfauthor={Ankush Das}
+}
+
+% Custom section formatting
+\titleformat{\section}{\large\bfseries}{}{0pt}{\uppercase}
+\titlespacing*{\section}{0pt}{12pt}{6pt}
+
+\begin{document}
+% Header
+\begin{center}
+    \textbf{\Large Ankush Das} \\[0.2em]
+    \small 
+    \href{mailto:envelopeankushdas67824@gmail.com}{\faEnvelope{} envelopeankushdas67824@gmail.com} \quad 
+    \faPhone{} +49 15751635689 \quad 
+    \faMapMarker{} Saarbrücken, Germany \\[0.2em]
+    \href{https://github.com/anounman}{\faGithub{} anounman} \quad 
+    \href{https://linkedin.com/in/anounman}{\faLinkedin{} anounman} \quad 
+    \href{https://anounman.app}{\faGlobe{} anounman.app}
+\end{center}
+
+\vspace{0.5em}
+
+\begin{multicols}{2}
+% Left Column
+\section*{Professional Summary}
+\justifying
+Motivated and results-driven software developer with comprehensive expertise in mobile and web technologies, seeking a role that leverages my skills in Python and leadership to drive innovation in digital ecosystems.
+
+\section*{Technical Skills}
+\vspace{-0.3em}
+\hspace{1em}\textbf{Programming Languages}
+\vspace{-0.2em}
+\begin{itemize}[leftmargin=1em,itemsep=0.3em,parsep=0pt,label=$\bullet$]
+    \item Python
+    \item Dart
+    \item SQL
+    \item C
+    \item C++
+\end{itemize}
+
+\vspace{0.3em}
+\textbf{Technologies}
+\vspace{-0.2em}
+\begin{itemize}[leftmargin=1em,itemsep=0.3em,parsep=0pt,label=$\bullet$]
+    \item Flutter
+    \item React.js
+    \item Node.js
+    \item Express.js
+    \item MongoDB
+    \item AWS EC2
+    \item Firebase
+\end{itemize}
+
+\vspace{0.3em}
+\textbf{Development Tools}
+\vspace{-0.2em}
+\begin{itemize}[leftmargin=1em,itemsep=0.3em,parsep=0pt,label=$\bullet$]
+    \item Git
+    \item GitHub
+    \item Figma
+    \item OpenCV
+    \item Django
+    \item FastAPI
+\end{itemize}
+
+\section*{Soft Skills}
+\vspace{-0.2em}
+\begin{itemize}[leftmargin=1em,itemsep=0.2em,parsep=0pt,label=$\cdot$]
+    \item Agile Methodology
+    \item Strategic Problem-solving
+    \item Rapid Technology Adaptation
+    \item Cross-functional Communication
+    \item Performance Optimization
+    \item User-Centric Design
+    \item Efficient Time Management
+    \item Innovative Thinking
+    \item Leadership
+\end{itemize}
+
+% Right Column
+\columnbreak
+\section*{Professional Experience}
+\vspace{-0.5em}
+\textbf{Flutter Developer, Quick Reserved GmbH} \\
+Apr 2024 - Aug 2024 \\
+\begin{itemize}[leftmargin=1em,itemsep=0.2em,parsep=0pt]
+    \item Architected table booking application utilizing Clean Architecture principles
+    \item Implemented advanced state management with GetX framework
+    \item Integrated Parser SDK to optimize data handling and processing
+\end{itemize}
+
+\textbf{Junior Full Stack Developer, Swarajya} \\
+Oct 2022 - Feb 2023 \\
+\begin{itemize}[leftmargin=1em,itemsep=0.2em,parsep=0pt]
+    \item Developed comprehensive news application with integrated audiobook functionality using MVVM architecture
+    \item Constructed robust backend infrastructure using Node.js and FastAPI
+    \item Managed complex SQL database systems and seamless API integrations
+\end{itemize}
+
+\textbf{Flutter Intern, OyeBusy} \\
+May 2022 - Oct 2022 \\
+\begin{itemize}[leftmargin=1em,itemsep=0.2em,parsep=0pt]
+    \item Developed service booking mobile application leveraging Flutter and GetX
+    \item Implemented local data persistence using SQLite
+    \item Enhanced application performance and user experience through strategic optimization
+\end{itemize}
+
+\section*{Notable Projects}
+\vspace{-0.5em}
+\textbf{Relation - Dating App} \\
+Full-stack application with secure Google Authentication \\
+\begin{itemize}[leftmargin=1em,itemsep=0.2em,parsep=0pt]
+    \item Implemented sophisticated matchmaking algorithm
+\end{itemize}
+
+\textbf{Flutter ML Gym Guide} \\
+Fitness tracking application utilizing Google ML Kit \\
+\begin{itemize}[leftmargin=1em,itemsep=0.2em,parsep=0pt]
+    \item Implemented real-time pose detection
+    \item Developed advanced rep counting and calorie tracking features
+\end{itemize}
+
+\section*{Education}
+\vspace{-0.5em}
+B.Tech in Computer Science and Engineering, Universität des Saarlandes \\
+2020 - 2024
+
+\section*{Certificates}
+\vspace{-0.5em}
+\begin{itemize}[leftmargin=1em,itemsep=0.1em,parsep=0pt]
+    \item Website Hacking and Penetration Testing Certification
+    \item Python and Ethical Hacking Certification
+    \item District Student-Youth Science Fair Participant (2017, 2018)
+\end{itemize}
+\end{multicols}
+\end{document}
