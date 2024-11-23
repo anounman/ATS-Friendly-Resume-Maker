@@ -77,13 +77,11 @@ def generate_cv_with_llm(transformed_data , job_description):
         \\renewcommand{{\\familydefault}}{{\\sfdefault}}
         \\usepackage[scaled=0.92]{{helvet}}
 
-        % Page layout
         \\geometry{{left=1in, right=1in, top=0.5in, bottom=0.5in}}
         \\pagestyle{{empty}}
         \\setlength{{\\parindent}}{{0pt}}
         \\setlength{{\\columnsep}}{{1cm}}
 
-        % Hyperlink formatting
         \\hypersetup{{
             colorlinks=true,
             urlcolor=black,
@@ -91,12 +89,10 @@ def generate_cv_with_llm(transformed_data , job_description):
             pdfauthor={{[NAME]}}
         }}
 
-        % Custom section formatting
         \\titleformat{{\\section}}{{\\large\\bfseries}}{{}}{{0pt}}{{\\uppercase}}
         \\titlespacing*{{\\section}}{{0pt}}{{12pt}}{{6pt}}
 
         \\begin{{document}}
-        % Header
         \\begin{{center}}
             \\textbf{{\\Large [NAME]}} \\\\[0.2em]
             \\small 
@@ -111,7 +107,7 @@ def generate_cv_with_llm(transformed_data , job_description):
         \\vspace{{0.5em}}
 
         \\begin{{multicols}}{{2}}
-        % Left Column
+
         \\section*{{Professional Summary}}
         \\justifying
         [PROFESSIONAL_SUMMARY]
@@ -150,7 +146,6 @@ def generate_cv_with_llm(transformed_data , job_description):
             [LANGUAGES]
         \\end{{itemize}}
 
-        % Right Column
         \\columnbreak
         \\section*{{Professional Experience}}
         \\vspace{{-0.5em}}
@@ -181,7 +176,8 @@ def generate_cv_with_llm(transformed_data , job_description):
 
     1. Template Adherence: Use the exact LaTeX template provided. Maintain all spacing, formatting, and structure, including section titles and ordering.
     2. Placeholder Replacement: Replace all placeholders (e.g., [NAME], [EMAIL]) with the appropriate data from the CV data.
-    3. Job Description Alignment: Add or remove information from the CV data to highlight the most relevant skills and experiences that match the job description.
+    3. Job Description Alignment: Add or remove information from the CV data to highlight the most relevant skills and experiences that match the job description. If there is a skill or something that is mentioned in the job description but not in the CV data, you can add it to the CV if it's a skill then add it in the skill section other wise add it on the summary section.
+    sumarry section must content all the skills and the requirments that is mention on the job description. And also add some keyword that are related to the perticular job if needed. 
     4. Data Integration: Ensure all sections are filled using the adjusted CV data. If certain data is missing or not relevant, leave the corresponding placeholder empty.
     5. LaTeX Formatting: Properly escape any LaTeX special characters in the data to prevent compilation errors.
     6. Output Format: Return only the complete LaTeX code without any additional text, explanations, or markdown formatting.
@@ -195,14 +191,7 @@ def generate_cv_with_llm(transformed_data , job_description):
     ### Template:
     
     {LATEX_TEMPLATE}
-    
-    ### **Instructions:**
-        1. Start by aligning the CV data with the job description.  
-        - For **missing attributes**, infer and add relevant information accoring to the job description.  
-        - For **irrelevant attributes**, remove or de-emphasize those sections.  
-        2. Structure the CV according to the provided LaTeX template, ensuring it is visually appealing and compliant with professional standards and it should strictly follow the given latex templete.  
-        3. Return only the updated LaTeX code with changes incorporated based on the job description.  
-        4. Do not include markdown formatting or additional explanations in the output.  
+      
     """
     
     try:
@@ -219,17 +208,11 @@ def ats_checker(job_description, cv_code):
         You are an AI specialized in analyzing CVs for Applicant Tracking Systems (ATS) compatibility.
         Analyze the provided CV and job description to determine the compatibility score based on the ATS criteria.
         Return the compatibility score as a percentage.
-
-        Job Description:
-        ---
-        {job_description}
-        ---
-
-        CV:
-        ---
-        {cv_code}
-        ---
         
+        Job Description:
+        {job_description}
+        CV:
+        {cv_code}
         ### **Instructions:**
         1. Analyze the CV and job description to identify relevant keywords and attributes.
         2. Evaluate the CV based on the ATS criteria to determine the compatibility score.
@@ -300,16 +283,7 @@ if uploaded_file and job_description and st.button("Process CV"):
                 # Show LaTeX code
                 st.subheader("LaTeX Code")
                 st.code(latex_cv, language='latex')
-                # pdf_data = convert_to_pdf(latex_cv)
-                # download_link = create_download_link(pdf_data)
-                # if pdf_data:
-                #     st.success("PDF generated successfully")
-                    # display_pdf(pdf_data)
-                    
-                    # Add download button
-                    # st.markdown(download_link, unsafe_allow_html=True)
-                # else:
-                #     st.error("PDF generation failed")
+                
                         
             else:
                 st.error("Failed to generate LaTeX")
@@ -317,7 +291,7 @@ if uploaded_file and job_description and st.button("Process CV"):
             # ATS Checker
             st.subheader("ATS Compatibility Score")
             with st.spinner("Checking ATS Compatibility..."):
-                ats_score = ats_checker(job_description, latex_cv)
+                ats_score = ats_checker(job_description, response)
             if ats_score:
                 st.write(f"ATS Compatibility Score: {ats_score}")
             else:
