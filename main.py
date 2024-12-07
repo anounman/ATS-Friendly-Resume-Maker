@@ -250,17 +250,14 @@ def create_streamlit_app(chain):
                 
                 if latex_cv:
                     # Create tabs for different views
-                    tab1, tab2, tab3 = st.tabs(["📑 CV Preview", "⚙️ LaTeX Code", "📊 ATS Score"])
+                    tab1, tab2 = st.tabs(["⚙️ LaTeX Code", "📊 ATS Score"])
+                    
                     
                     with tab1:
-                        st.markdown("### Generated CV")
-                        # Add your PDF display logic here
-                    
-                    with tab2:
                         st.markdown("### LaTeX Source")
                         st.code(latex_cv, language='latex')
                     
-                    with tab3:
+                    with tab2:
                         st.markdown("### ATS Analysis")
                         with st.spinner("📊 Analyzing ATS Compatibility..."):
                             ats_score = chain.ats_checker(job_description, response , st)

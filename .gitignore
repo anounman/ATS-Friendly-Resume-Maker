@@ -1,0 +1,8 @@
+# Ignore .env files
+.env
+.env.*
+
+# Ignore virtual environment directories
+venv/
+venv*/
+cv_reader.py
