@@ -17,7 +17,7 @@ class Chain:
         self.llm = ChatGroq(
         temperature=0,
         timeout=None,
-        groq_api_key=os.getenv("lama_api"),
+        groq_api_key=str(apikey),
         model_name="llama-3.1-70b-versatile"
         )
     def extract_text_from_pdf(self , pdf_file):
@@ -172,6 +172,7 @@ class Chain:
             \\end{{multicols}}
             \\end{{document}}
             """
+        
         prompt = f"""
         As a LaTeX expert, your task is to generate a professional CV by filling in the placeholders in the provided LaTeX template with the corresponding data from the CV data.
         Additionally, adjust the content by adding or removing information to best fit the provided job description. 
