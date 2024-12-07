@@ -15,7 +15,7 @@ class Chain:
         self.llm = ChatGroq(
         temperature=0,
         timeout=None,
-        groq_api_key='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',
+        groq_api_key=os.getenv("lama_api"),
         model_name="llama-3.1-70b-versatile"
         )
     def extract_text_from_pdf(self , pdf_file):
