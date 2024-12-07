@@ -15,7 +15,7 @@ class Chain:
         self.llm = ChatGroq(
         temperature=0,
         timeout=None,
-        groq_api_key=os.getenv("lama_api"),
+        groq_api_key='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',
         model_name="llama-3.1-70b-versatile"
         )
     def extract_text_from_pdf(self , pdf_file):
@@ -210,7 +210,7 @@ class Chain:
             return None
 
 
-    # def ats_checker(self , job_description, cv_code , st):
+    def ats_checker(self, job_description, cv_code, st):
         prompt_extract = PromptTemplate.from_template(
             """
             Analyze the CV and job description to determine ATS compatibility.
@@ -220,25 +220,25 @@ class Chain:
             ---
             {job_description}
             ---
-    
+        
             CV:
             ---
             {cv_code}
             ---
-            ### VALID NUMBER (NO PREAMBLE)
             """
         )
         try:
-            chain_extract = prompt_extract | llm
+            chain_extract = prompt_extract | self.llm
             response = chain_extract.invoke(input={
                 "job_description": job_description,
                 "cv_code": cv_code
             })
             
-            # Extract numeric score from response
-            score = response.content.strip().rstrip('%')
-            return float(score)
+           
+    
+            return response.content
             
         except Exception as e:
             st.error(f"Error calculating ATS score: {e}")
             return 0.0
+       
