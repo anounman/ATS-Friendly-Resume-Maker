@@ -1,6 +1,7 @@
 import json
 import os
 
+import streamlit as st
 from dotenv import load_dotenv
 from langchain_core.output_parsers import JsonOutputParser
 from langchain_core.prompts import PromptTemplate
@@ -12,6 +13,7 @@ load_dotenv()
 
 class Chain:
     def __init__(self):
+        apikey = os.getenv("lama_api") or st.secrets.get("LAMA_API")
         self.llm = ChatGroq(
         temperature=0,
         timeout=None,
