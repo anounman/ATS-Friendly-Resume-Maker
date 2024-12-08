@@ -14,7 +14,7 @@ load_dotenv()
 class Chain:
     def __init__(self):
         apikey = os.getenv("lama_api") or st.secrets["LAMA_API"]
-        print(apiKey)
+        print(str(apikey))
         self.llm = ChatGroq(
         temperature=0,
         timeout=None,
