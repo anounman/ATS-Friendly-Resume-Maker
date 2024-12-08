@@ -13,7 +13,7 @@ load_dotenv()
 
 class Chain:
     def __init__(self):
-        apikey = os.getenv("lama_api") or st.secrets.get("LAMA_API")
+        apikey = os.getenv("lama_api") or st.secrets["LAMA_API"]
         self.llm = ChatGroq(
         temperature=0,
         timeout=None,
@@ -62,115 +62,96 @@ class Chain:
 
     def generate_cv_with_llm(self , transformed_data , job_description , st):
         LATEX_TEMPLATE = r"""
-            \\documentclass[a4paper,10pt]{{article}}
-            \\usepackage[utf8]{{inputenc}}
-            \\usepackage[T1]{{fontenc}}
-            \\usepackage{{geometry}}
-            \\usepackage{{enumitem}}
-            \\usepackage{{multicol}}
-            \\usepackage{{titlesec}}
-            \\usepackage{{fontawesome5}}
-            \\usepackage{{hyperref}}
-            \\usepackage{{ragged2e}}
-            \\usepackage{{helvet}}
-            \\usepackage{{lmodern}}
-            \\renewcommand{{\\familydefault}}{{\\sfdefault}}
-            \\usepackage[scaled=0.92]{{helvet}}
+        \\documentclass[a4paper,10pt]{{article}}
+        \\usepackage[utf8]{{inputenc}}
+        \\usepackage[T1]{{fontenc}}
+        \\usepackage{{geometry}}
+        \\usepackage{{enumitem}}
+        \\usepackage{{fontawesome5}}
+        \\usepackage{{hyperref}}
+        \\usepackage{{ragged2e}}
+        \\usepackage[scaled=0.92]{{helvet}}
+        \\usepackage{{lmodern}}
+        \\usepackage{{tabularx}}
 
-            % Page layout
-            \\geometry{{left=1in, right=1in, top=0.5in, bottom=0.5in}}
-            \\pagestyle{{empty}}
-            \\setlength{{\\parindent}}{{0pt}}
-            \\setlength{{\\columnsep}}{{1cm}}
+        % Use sans-serif font
+        \\renewcommand{{\\familydefault}}{{\\sfdefault}}
 
-            % Hyperlink formatting
-            \\hypersetup{{
-                colorlinks=true,
-                urlcolor=black,
-                pdftitle={{Professional Resume}},
-                pdfauthor={{[NAME]}}
-            }}
+        % Page layout
+        \\geometry{{left=0.8in, right=0.8in, top=0.5in, bottom=0.5in}}
+        \\pagestyle{{empty}}
+        \\setlength{{\\parindent}}{{0pt}}
 
-            % Custom section formatting
-            \\titleformat{{\\section}}{{\\large\\bfseries}}{{}}{{0pt}}{{\\uppercase}}
-            \\titlespacing*{{\\section}}{{0pt}}{{12pt}}{{6pt}}
+        % Reduce space before and after sections
+        \\usepackage{{titlesec}}
+        \\titlespacing*{{\\section}}{{0pt}}{{0.5em}}{{0.2em}}
 
-            \\begin{{document}}
-            % Header
-            \\begin{{center}}
-                \\textbf{{\\Large [NAME]}} \\\\[0.2em]
-                \\small 
-                \\href{{mailto:[EMAIL]}}{{\\faEnvelope{} [EMAIL]}} \\quad 
-                \\faPhone{} [PHONE] \\quad 
-                \\faMapMarker{} [LOCATION] \\\\[0.2em]
-                \\href{{[GITHUB_URL]}}{{\\faGithub{} [GITHUB]}} \\quad 
-                \\href{{[LINKEDIN_URL]}}{{\\faLinkedin{} [LINKEDIN]}} \\quad 
-                \\href{{[WEBSITE_URL]}}{{\\faGlobe{} [WEBSITE]}}
-            \\end{{center}}
+        % Hyperlink formatting
+        \\hypersetup{{
+            colorlinks=true,
+            urlcolor=black,
+            pdftitle={{Professional Resume}},
+            pdfauthor={{{{{{FULL_NAME}}}}}}
+        }}
 
-            \\vspace{{0.5em}}
+        % Custom command for skills with reduced vertical spacing
+        \\newcommand{{\\skill}}[2]{{%
+            \\textbf{{#1}}: #2 \\\\[-0.2em]}}
 
-            \\begin{{multicols}}{{2}}
-            % Left Column
-            \\section*{{Professional Summary}}
-            \\justifying
-            [PROFESSIONAL_SUMMARY]
+        \\begin{{document}}
+        % Header
+        \\begin{{center}}
+            \\textbf{{\\Large {{{{FULL_NAME}}}}}} \\\\[0.1em]
+            \\small
+            \\href{{mailto:{{{{EMAIL}}}}}}{{\\faEnvelope{{}} {{{{EMAIL}}}}}} \\quad
+            \\faPhone{{}} {{{{PHONE}}}} \\quad
+            \\faMapMarker{{}} {{{{ADDRESS}}}} \\\\[0.1em]
+            \\href{{ {{{{WEBSITE}}}} }}{{\\faGlobe{{}} {{{{WEBSITE}}}}}}
+        \\end{{center}}
 
-            \\section*{{Technical Skills}}
-            \\vspace{{-0.3em}}
-            \\hspace{{1em}}\\textbf{{Programming Languages}}
-            \\vspace{{-0.2em}}
-            \\begin{{itemize}}[leftmargin=1em,itemsep=0.3em,parsep=0pt,label=$\\bullet$]
-                [PROGRAMMING_LANGUAGES]
-            \\end{{itemize}}
+        \\vspace{{0.2em}}
 
-            \\vspace{{0.3em}}
-            \\textbf{{Technologies}}
-            \\vspace{{-0.2em}}
-            \\begin{{itemize}}[leftmargin=1em,itemsep=0.3em,parsep=0pt,label=$\\bullet$]
-                [TECHNOLOGIES]
-            \\end{{itemize}}
+        % Professional Summary
+        \\section*{{Professional Summary}}
+        \\justifying
+        {{{{PROFESSIONAL_SUMMARY}}}}
 
-            \\vspace{{0.3em}}
-            \\textbf{{Development Tools}}
-            \\vspace{{-0.2em}}
-            \\begin{{itemize}}[leftmargin=1em,itemsep=0.3em,parsep=0pt,label=$\\bullet$]
-                [DEV_TOOLS]
-            \\end{{itemize}}
+        % Experience
+        \\section*{{Professional Experience}}
+        \\begin{{itemize}}[leftmargin=1em,itemsep=0.1em,parsep=0pt,topsep=0pt]
+            {{{{EXPERIENCE_ITEMS}}}}
+        \\end{{itemize}}
 
-            \\section*{{Soft Skills}}
-            \\vspace{{-0.2em}}
-            \\begin{{itemize}}[leftmargin=1em,itemsep=0.2em,parsep=0pt,label=$\\cdot$]
-                [SOFT_SKILLS]
-            \\end{{itemize}}
+        % Projects
+        \\section*{{Notable Projects}}
+        \\begin{{itemize}}[leftmargin=1em,itemsep=0.1em,parsep=0pt,topsep=0pt]
+            {{{{PROJECT_ITEMS}}}}
+        \\end{{itemize}}
 
-            \\section*{{Languages}}
-            \\vspace{{-0.2em}}
-            \\begin{{itemize}}[leftmargin=1em,itemsep=0.2em,parsep=0pt]
-                [LANGUAGES]
-            \\end{{itemize}}
+        % Technical Skills
+        \\section*{{Technical Skills}}
+        
+        {{{{TECHNICAL_SKILLS}}}}
 
-            % Right Column
-            \\columnbreak
-            \\section*{{Professional Experience}}
-            \\vspace{{-0.5em}}
-            [EXPERIENCE]
+        % Soft Skills
+        \\section*{{Soft Skills}} 
+        % in row formate
+        {{{{SOFT_SKILLS}}}}
 
-            \\section*{{Notable Projects}}
-            \\vspace{{-0.5em}}
-            [PROJECTS]
+        % Education
+        \\section*{{Education}}
+        \\begin{{itemize}}[leftmargin=1em,itemsep=0.1em,parsep=0pt,topsep=0pt]
+            {{{{EDUCATION_ITEMS}}}}
+        \\end{{itemize}}
 
-            \\section*{{Education}}
-            \\vspace{{-0.5em}}
-            [EDUCATION]
+        % Languages
+        \\section*{{Languages}}
+        \\begin{{itemize}}[leftmargin=1em,itemsep=0.1em,parsep=0pt,topsep=0pt]
+            {{{{LANGUAGE_ITEMS}}}}
+        \\end{{itemize}}
 
-            \\section*{{Certificates}}
-            \\vspace{{-0.5em}}
-            \\begin{{itemize}}[leftmargin=1em,itemsep=0.1em,parsep=0pt]
-                [CERTIFICATES]
-            \\end{{itemize}}
-            \\end{{multicols}}
-            \\end{{document}}
+        \\end{{document}}
+
             """
         
         prompt = f"""

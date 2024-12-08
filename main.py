@@ -23,11 +23,16 @@ def create_streamlit_app(chain):
         .stButton>button:hover {
             background-color: #45a049;
             transform: translateY(-2px);
+            color:white;
         }
         .title {
             text-align: center;
             color: #2E4053;
             text-shadow: 2px 2px 4px rgba(0,0,0,0.1);
+           
+        }
+        .title:hover {
+            color: #FFD700;  /* Yellow color on hover */
         }
         </style>
     """, unsafe_allow_html=True)
