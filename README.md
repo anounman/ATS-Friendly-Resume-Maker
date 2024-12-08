@@ -1,32 +1,38 @@
-# Resume Maker
+# ATS-Friendly CV Generator
 
-Resume Maker is a simple and efficient tool to create professional resumes. This project aims to help users generate well-structured resumes with ease.
+An AI-powered tool that analyzes your existing CV and job descriptions to generate LaTeX code for ATS-optimized resumes. The generated LaTeX code can be compiled into a PDF using Overleaf.
+
+🔗 [Live Demo](https://ats-friendly-resume-maker.streamlit.app/)
 
 ## Features
 
-- User-friendly interface
-- Multiple resume templates
-- Easy customization
-- Export to PDF
+- **CV Analysis**: Extracts information from existing PDF resumes
+- **Job Matching**: Optimizes content based on job requirements
+- **ATS Score**: Shows compatibility with job description
+- **LaTeX Generation**: Creates professional, ATS-friendly CV code
+- **Real-time Processing**: Instant analysis and generation
+- **Customizable Output**: Edit generated LaTeX code as needed
 
 ## Installation
 
 1. Clone the repository:
 
     ```bash
-    git clone https://github.com/yourusername/resume-maker.git
+    git clone https://github.com/yourusername/cv-generator.git
+    cd cv-generator
     ```
 
-2. Navigate to the project directory:
+2. Create virtual environment:
 
     ```bash
-    cd resume-maker
+    python -m venv venv
+    venv\Scripts\activate
     ```
 
-3. Install the dependencies:
+3. Install dependencies:
 
     ```bash
-    npm install
+    pip install -r requirements.txt
     ```
 
 ## Usage
@@ -34,24 +40,32 @@ Resume Maker is a simple and efficient tool to create professional resumes. This
 1. Start the application:
 
     ```bash
-    npm start
+    streamlit run main.py
     ```
 
-2. Open your browser and navigate to `http://localhost:3000`
-3. Follow the on-screen instructions to create your resume.
+2. Upload your existing CV (PDF format)
+3. Paste the job description
+4. Click "Generate Custom CV"
+5. View your ATS score and LaTeX code
+
+### Converting to PDF using Overleaf
+
+1. Copy the generated LaTeX code
+2. Go to [Overleaf](https://www.overleaf.com)
+3. Create a new project
+4. Paste the LaTeX code
+5. Click "Compile" to generate PDF
 
 ## Contributing
 
-Contributions are welcome! Please follow these steps:
-
-1. Fork the repository.
-2. Create a new branch:
+1. Fork the repository
+2. Create your feature branch:
 
     ```bash
     git checkout -b feature-name
     ```
 
-3. Make your changes and commit them:
+3. Commit your changes:
 
     ```bash
     git commit -m "Add feature"
@@ -63,12 +77,13 @@ Contributions are welcome! Please follow these steps:
     git push origin feature-name
     ```
 
-5. Open a pull request.
+5. Open a pull request
 
 ## License
 
-This project is licensed under the MIT License. See the [LICENSE](LICENSE) file for details.
+This project is licensed under the MIT License. See [LICENSE](LICENSE) file for details.
 
 ## Contact
 
-For any questions or suggestions, please open an issue or contact the project maintainer at <ankush@grevelops.co>
+- Email: <ankush@grevelops.co>
+- Live Demo: <https://ats-friendly-resume-maker.streamlit.app/>
