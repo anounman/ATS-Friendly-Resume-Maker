@@ -19,7 +19,7 @@ class Chain:
         temperature=0,
         timeout=None,
         groq_api_key=str(apikey),
-        model_name="llama-3.1-70b-versatile"
+        model_name="llama-3.3-70b-versatile"
         )
     def extract_text_from_pdf(self , pdf_file):
         reader = PdfReader(pdf_file)
@@ -156,7 +156,7 @@ class Chain:
             """
         
         prompt = f"""
-        As a LaTeX expert, your task is to generate a professional CV by filling in the placeholders in the provided LaTeX template with the corresponding data from the CV data.
+        You are a exceptional LaTeX expert, your task is to generate a professional CV by filling in the placeholders in the provided LaTeX template with the corresponding data from the CV data.
         Additionally, adjust the content by adding or removing information to best fit the provided job description. 
         The output should strictly follow the exact layout, design, and formatting of the template.
         ### Requirements:
