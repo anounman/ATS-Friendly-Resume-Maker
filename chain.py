@@ -155,29 +155,27 @@ class Chain:
             """
         
         prompt = f"""
-        You are a exceptional LaTeX expert, your task is to generate a professional CV by filling in the placeholders in the provided LaTeX template with the corresponding data from the CV data.
-        Additionally, adjust the content by adding or removing information to best fit the provided job description. 
-        The output should strictly follow the exact layout, design, and formatting of the template.
-        ### Requirements:
-        1. Template Adherence: Use the exact LaTeX template provided. Maintain all spacing, formatting, and structure, including section titles and ordering.
-        2. Placeholder Replacement: Replace all placeholders (e.g., [NAME], [EMAIL]) with the appropriate data from the CV data.
-        3. Job Description Alignment: Add or remove information from the CV data to highlight the most relevant skills and experiences that match the job description. If there is a skill or something that is mentioned in the job description but not in the CV data, you can add it to the CV if it's a skill then add it in the skill section other wise add it on the summary section.
-        sumarry section must content all the skills and the requirments that is mention on the job description. And also add some keyword that are related to the perticular job if needed. 
-        4. Data Integration: Ensure all sections are filled using the adjusted CV data. If certain data is missing or not relevant, leave the corresponding placeholder empty.
-        5. LaTeX Formatting: Properly escape any LaTeX special characters in the data to prevent compilation errors.
-        6. Output Format: Return only the complete LaTeX code without any additional text, explanations, or markdown formatting.
-        7. CRITICAL: READ THE JOB DESCRIPTION AND ADD OR REMOVE SKILLS OR KEYWOD ACCORDING TO THAT FOR ex.If there the job is for an Full Stack Web Developer and on cv ther is a framework for Flutter then remove flutter as it's not relevent for the job post But do not remove any Professional Experiences.
-        8. CRITICAL : Change the CV LANGUGE According to the job description for ex. If the job description is in German then traslate the cv into German as well.
+        You are an exceptional LaTeX expert with the ability to craft highly professional and ATS-friendly CVs. Your task is to generate a tailored CV by filling in the placeholders in the provided LaTeX template with the corresponding data from the CV information. 
+        **Instructions:**
+        1. **Template Adherence:** Use the exact LaTeX template provided. Maintain all spacing, formatting, and structure, including section titles and ordering.
+        2. **Data Integration:** Replace all placeholders (e.g., [NAME], [EMAIL]) with the appropriate data from the CV information. If certain data is missing or not relevant, leave the corresponding placeholder empty.
+        3. **Job Description Alignment:** 
+        - Add or remove information from the CV data to highlight the most relevant skills and experiences that match the job description.
+        - Ensure the summary section includes all the skills and requirements mentioned in the job description. If a skill is mentioned in the job description but not in the CV data, add it to the skills section or summary if it's not a skill.
+        4. **Critical Adjustments:**
+        - If the job description is for a specific role (e.g., Full Stack Web Developer), remove irrelevant skills or frameworks (e.g., Flutter) from the CV. However, do not remove any Professional Experiences.
+        - Translate the CV language according to the job description (e.g., if the job description is in German, translate the CV into German).
+        - Add project descriptions only if the projects are relevant to the job. Use the exact project descriptions from the CV data but tweak the sentences slightly if necessary. Do not add any new content.
+        5. **ATS Optimization:** Ensure the CV is ATS-friendly by adding or removing certain keywords to match the job description requirements.
+        6. **LaTeX Formatting:** Properly escape any LaTeX special characters in the data to prevent compilation errors.
+        7. **Output Requirements:** Return only the complete LaTeX code without any additional text, explanations, or markdown formatting.
+        Your primary goal is to create a CV that is highly optimized for ATS systems while maintaining professional formatting and relevance to the job description.
         ### Provided  CV Data:
         {json.dumps(transformed_data, indent=2)}
-        
         ### Job Description:
         {job_description}
-        
         ### Template:
-        
         {LATEX_TEMPLATE}
-        
         ### **Instructions:**
             1. Start by aligning the CV data with the job description.  
             - For **missing attributes**, infer and add relevant information accoring to the job description.  
