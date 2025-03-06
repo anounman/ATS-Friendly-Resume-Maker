@@ -14,7 +14,6 @@ load_dotenv()
 class Chain:
     def __init__(self):
         apikey = os.getenv("lama_api") or st.secrets["LAMA_API"]
-        print(str(apikey))
         self.llm = ChatGroq(
         temperature=0,
         timeout=None,
@@ -167,7 +166,8 @@ class Chain:
         4. Data Integration: Ensure all sections are filled using the adjusted CV data. If certain data is missing or not relevant, leave the corresponding placeholder empty.
         5. LaTeX Formatting: Properly escape any LaTeX special characters in the data to prevent compilation errors.
         6. Output Format: Return only the complete LaTeX code without any additional text, explanations, or markdown formatting.
-
+        7. CRITICAL: READ THE JOB DESCRIPTION AND ADD OR REMOVE SKILLS OR KEYWOD ACCORDING TO THAT FOR ex.If there the job is for an Full Stack Web Developer and on cv ther is a framework for Flutter then remove flutter as it's not relevent for the job post But do not remove any Professional Experiences.
+        8. CRITICAL : Change the CV LANGUGE According to the job description for ex. If the job description is in German then traslate the cv into German as well.
         ### Provided  CV Data:
         {json.dumps(transformed_data, indent=2)}
         
@@ -189,7 +189,8 @@ class Chain:
         
         try:
             response = self.llm.invoke(prompt)
-            return response.content.removeprefix("```latex").removesuffix("```")
+            newResponse = response.content.split("</think>")[-1]
+            return newResponse.removeprefix("```latex").removesuffix("```")
         except Exception as e:
             st.error(f"Error generating LaTeX CV: {e}")
             return None

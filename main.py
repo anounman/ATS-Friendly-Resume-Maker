@@ -4,7 +4,6 @@ import streamlit as st
 
 from chain import Chain
 
-
 def create_streamlit_app(chain):
     # Custom CSS
     st.markdown("""
@@ -155,5 +154,4 @@ def create_streamlit_app(chain):
 
 if __name__ == "__main__":
     chain = Chain()
-    
     create_streamlit_app(chain)
